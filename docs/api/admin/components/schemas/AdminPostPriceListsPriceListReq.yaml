@@ -65,6 +65,12 @@ properties:
         max_quantity:
           description: The maximum quantity for which the price will be used.
           type: integer
+        metadata:
+          description: An optional key-value map with additional details
+          nullable: true
+          type: object
+          example:
+            car: white
   customer_groups:
     type: array
     description: A list of customer groups that the Price List applies to.

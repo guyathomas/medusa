@@ -5,6 +5,7 @@ import {
   IsOptional,
   IsString,
   ValidateNested,
+  IsObject,
 } from "class-validator"
 import {
   AdminPriceListPricesCreateReq,
@@ -193,6 +194,12 @@ class CustomerGroup {
  *          max_quantity:
  *            description: The maximum quantity for which the price will be used.
  *            type: integer
+ *          metadata:
+ *            description: An optional set of key-value pairs to hold additional information.
+ *            type: object
+ *            externalDocs:
+ *              description: "Learn about the metadata attribute, and how to delete and update it."
+ *              url: "https://docs.medusajs.com/development/entities/overview#metadata-attribute"
  *   customer_groups:
  *     type: array
  *     description: An array of customer groups that the Price List applies to.
