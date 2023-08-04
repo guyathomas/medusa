@@ -13,6 +13,7 @@ import { ProductVariant } from "./product-variant"
 import { Region } from "./region"
 import { SoftDeletableEntity } from "../interfaces/models/soft-deletable-entity"
 import { generateEntityId } from "../utils/generate-entity-id"
+import { DbAwareColumn } from "../utils"
 
 @Entity()
 export class MoneyAmount extends SoftDeletableEntity {
@@ -43,7 +44,7 @@ export class MoneyAmount extends SoftDeletableEntity {
   @JoinColumn({ name: "price_list_id" })
   price_list: PriceList | null
 
-  @Index('idx_money_amount_variant_id')
+  @Index("idx_money_amount_variant_id")
   @Column({ nullable: true })
   variant_id: string
 
@@ -53,13 +54,16 @@ export class MoneyAmount extends SoftDeletableEntity {
   @JoinColumn({ name: "variant_id" })
   variant: ProductVariant
 
-  @Index('idx_money_amount_region_id')
+  @Index("idx_money_amount_region_id")
   @Column({ nullable: true })
   region_id: string
 
   @ManyToOne(() => Region)
   @JoinColumn({ name: "region_id" })
   region?: Region
+
+  @DbAwareColumn({ type: "jsonb", nullable: true })
+  metadata: Record<string, unknown>
 
   @BeforeInsert()
   private beforeInsert(): undefined | void {
@@ -158,4 +162,12 @@ export class MoneyAmount extends SoftDeletableEntity {
  *     nullable: true
  *     type: string
  *     format: date-time
+ *   metadata:
+ *     description: An optional key-value map with additional details
+ *     nullable: true
+ *     type: object
+ *     example: {car: "white"}
+ *     externalDocs:
+ *       description: "Learn about the metadata attribute, and how to delete and update it."
+ *       url: "https://docs.medusajs.com/development/entities/overview#metadata-attribute"
  */
